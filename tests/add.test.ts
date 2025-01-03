@@ -19,3 +19,8 @@ test('Should add two numbers with custom delimiters', () => {
 test('Should add two numbers with different delimiters', () => {
     expect(add('//;\n1;2,1\n1')).toBe(5)
 })
+
+test('Should not allow negative numbers', () => {
+    const e = 'Negative numbers not allowed -1, -3'
+    expect(() => add('//;\n-1;2;-3')).toThrow(e)
+})
