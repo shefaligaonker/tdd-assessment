@@ -24,3 +24,12 @@ test('Should not allow negative numbers', () => {
     const e = 'Negative numbers not allowed -1, -3'
     expect(() => add('//;\n-1;2;-3')).toThrow(e)
 })
+
+test('Should not be empty', () => {
+    const e = 'Not a valid input'
+    expect(() => add('')).toThrow(e)
+})
+
+test('Should ignore num greater than 1000', () => {
+    expect(add('//;\n1;1002;2')).toBe(3)
+})

@@ -5,6 +5,9 @@
  */
 export function add (input: string): number {
     try {
+        if(!input){
+            throw new Error('Not a valid input')
+        }
         let items: string[] = [] 
     
         // extract delimiter
