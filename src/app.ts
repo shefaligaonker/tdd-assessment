@@ -9,35 +9,32 @@ export function add (input: string): number {
             throw new Error('Not a valid input')
         }
         let items: string[] = [] 
+        let result = 0
+        const customRegex = /\/\/(.*?)\n/ 
+        let negativeNumbers:string[] = []  
     
         // extract delimiter
-        const regex = /\/\/(.*?)\n/ 
-        const parts: string[] = input.match(regex) || []
-
+        const parts: string[] = input.match(customRegex) || []
         if(parts[1]){
             // custom delimiter
-            input = input.replace(regex, '')
+            input = input.replace(customRegex, '')
             const dynamicReg = new RegExp(`,|\n|${parts[1]}`)  
             items = input.split(dynamicReg)    
         }
-        else{
-            // split based on , or \n
-            items = input.split(/,|\n/)
-        }
 
-        let result = 0
-        let negativeNumbers:string[] = []       
+        items = items.length ? items : input.split(/,|\n/)
+
         items.forEach( element => {
             const num = parseInt(element);
             if(num < 0){
                 negativeNumbers.push(element);
             }
             else if(num <= 1000){
-                result = result + num
+                result += num
             }        
         })
 
-        if(negativeNumbers.length > 0)
+        if(negativeNumbers.length)
             throw new Error(`Negative numbers not allowed ${negativeNumbers.join(', ')}`)
 
         return result
